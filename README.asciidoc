@@ -13,8 +13,10 @@ Manual steps could be as follows:
 ```sh
 cd ~/.local/bin
 git clone --bare https://github.com/sskras/.local-bin.git .git
-GIT_WORK_TREE="." \
+export GIT_WORK_TREE="."
 git checkout
 ```
 
 If there is no conflict, you will get new files along the old files (if any).
+
+All subsequent Git ops in this dir will require `GIT_WORK_TREE` being set.
