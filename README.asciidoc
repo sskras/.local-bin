@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: BlueOak-1.0.0
 // SPDX-FileCopyrightText: 2023 Saulius Krasuckas <saulius2_at_ar-fi_point_lt> | sskras
 
-= `TODO` name | short description
+= A repo of personal executables residing in `~/.local/bin`
+
+Hopefully most of them will be cross-platform, ie. shell scripts (as opposed to binaries).
 
 === `TODO` Section
 
