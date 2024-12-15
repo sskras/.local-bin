@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BlueOak-1.0.0
-// SPDX-FileCopyrightText: 2023 Saulius Krasuckas <saulius2_at_ar-fi_point_lt> | sskras
+// SPDX-FileCopyrightText: 2023,2024 Saulius Krasuckas <saulius2_at_ar-fi_point_lt> | sskras
 
 = A repo of personal executables residing in `~/.local/bin`
 
@@ -17,4 +17,4 @@ GIT_WORK_TREE="." \
 git checkout
 ```
 
-If there is no conflict, you will get the new files along the old files (if any).
+If there is no conflict, you will get new files along the old files (if any).
