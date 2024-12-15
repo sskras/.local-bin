@@ -5,6 +5,16 @@
 
 Hopefully most of them will be cross-platform, ie. shell scripts (as opposed to binaries).
 
-=== `TODO` Section
+=== Deployment
 
-`TODO` repo introduction
+Supposed be deployed transparently via https://github.com/sskras/.files[**sskras/.files**] onboarding mechanics.
+
+Manual steps could be as follows:
+```sh
+cd ~/.local/bin
+git clone --bare https://github.com/sskras/.local-bin.git .git
+GIT_WORK_TREE="." \
+git checkout
+```
+
+If there is no conflict, you will get the new files along the old files (if any).
