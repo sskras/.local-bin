@@ -5,4 +5,7 @@
 
 # Get videos from the internet.
 
-at 21:20 <<< '(date; pwd; timeout -s SIGINT 139m debug/yt-dlp --audio-multistreams -f hls-audio1-ORG+hls-audio1-LIT+hls-3 -o "%(title)s [%(id)s].%(ext)s" https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius) > "[2021]-The-Souvenir-Part-II-(Suvenyras-II)-FHD.2025-01-30-LRT+.log" 2>&1'
+at 21:20 <<< \
+'
+(date; pwd; timeout -s SIGINT 139m debug/yt-dlp --audio-multistreams -f hls-audio1-ORG+hls-audio1-LIT+hls-3 -o "%(title)s [%(id)s].%(ext)s" https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius) > "[2021]-The-Souvenir-Part-II-(Suvenyras-II)-FHD.2025-01-30-LRT+.log" 2>&1
+'
