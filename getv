@@ -12,7 +12,7 @@ at 21:20 << \
   pwd
   timeout -s SIGINT                                                                \
     139m                                                                           \
-    debug/yt-dlp                                                                   \
+    yt-dlp                                                                         \
       --audio-multistreams                                                         \
       -f hls-audio1-ORG+hls-audio1-LIT+hls-3                                       \
       -o "%(title)s [%(id)s].%(ext)s"                                              \
