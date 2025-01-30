@@ -9,20 +9,21 @@ DATE="21:20"
 DURATION="139m"
 URL="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
 TRACKS="hls-audio1-ORG+hls-audio1-LIT+hls-3"
+OUTPUT="%(title)s [%(id)s].%(ext)s"
 LOG="[2021]-The-Souvenir-Part-II-(Suvenyras-II)-FHD.2025-01-30-LRT+.log"
 
 at "${DATE}" << \
---------------------------------------------------------------------------------------
+-----------------------------
 (
   date
   pwd
-  timeout -s SIGINT                                                                \
+  timeout -s SIGINT         \
     ${DURATION}             \
-    yt-dlp                                                                         \
-      --audio-multistreams                                                         \
+    yt-dlp                  \
+      --audio-multistreams  \
       -f "${TRACKS}"        \
-      -o "%(title)s [%(id)s].%(ext)s"                                              \
+      -o "${OUTPUT}"        \
       ${URL}                \
 ) \
 > "${LOG}" 2>&1
---------------------------------------------------------------------------------------
+-----------------------------
