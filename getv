@@ -3,9 +3,13 @@
 # SPDX-License-Identifier: BlueOak-1.0.0
 # SPDX-FileCopyrightText: 2025 Saulius Krasuckas <saulius2_at_ar-fi_point_lt> | sskras
 
-DATE="21:20"
-
 # Get videos from the internet.
+
+DATE="21:20"
+DURATION="139m"
+URL="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
+TRACKS="hls-audio1-ORG+hls-audio1-LIT+hls-3"
+LOG="[2021]-The-Souvenir-Part-II-(Suvenyras-II)-FHD.2025-01-30-LRT+.log"
 
 at "${DATE}" << \
 --------------------------------------------------------------------------------------
@@ -13,12 +17,12 @@ at "${DATE}" << \
   date
   pwd
   timeout -s SIGINT                                                                \
-    139m                                                                           \
+    ${DURATION}             \
     yt-dlp                                                                         \
       --audio-multistreams                                                         \
-      -f hls-audio1-ORG+hls-audio1-LIT+hls-3                                       \
+      -f "${TRACKS}"        \
       -o "%(title)s [%(id)s].%(ext)s"                                              \
-      https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius                            \
+      ${URL}                \
 ) \
-> "[2021]-The-Souvenir-Part-II-(Suvenyras-II)-FHD.2025-01-30-LRT+.log" 2>&1
+> "${LOG}" 2>&1
 --------------------------------------------------------------------------------------
