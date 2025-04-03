@@ -10,7 +10,7 @@ Start_time=${2:-now}
 Duration=${3:-60m}
 TRACKS="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 OUTPUT="%(title)s [%(id)s].%(ext)s"
-LOG="[2018]-The-Favourite-(Favoritė)-FHD.2025-04-04-LRT.log"
+Log=${4:-[2018]-The-Favourite-(Favoritė)-FHD.2025-04-04-LRT.log}
 
 case $Channel in
 
@@ -43,7 +43,7 @@ at '${Start_time}' << \
       ${Url}                \
 
 ) \
-> '${LOG}' 2>&1
+> '${Log}' 2>&1
 -----------------------------
 "
 eval "$Cmd"
