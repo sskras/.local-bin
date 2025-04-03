@@ -10,7 +10,6 @@ Start_time=${2:-now}
 Duration=${3:-60m}
 TRACKS="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 OUTPUT="%(title)s [%(id)s].%(ext)s"
-Log=${4:-[2018]-The-Favourite-(Favoritė)-FHD.2025-04-04-LRT.log}
 
 case $Channel in
 
@@ -26,6 +25,8 @@ case $Channel in
     Url="TODO://unknown-channel"
     ;;
 esac
+
+Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-FHD.2025-04-04-LRT.log}
 
 Cmd="
 cd
