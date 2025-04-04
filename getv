@@ -12,8 +12,8 @@ TRACKS="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 OUTPUT="%(title)s [%(id)s].%(ext)s"
 LOG="[2021]-The-Souvenir-Part-II-(Suvenyras-II)-FHD.2025-01-30-LRT+.log"
 
-Cmd='
-at "${Start_time}" << \
+Cmd="
+at '${Start_time}' << \
 -----------------------------
 (
   date
@@ -22,14 +22,14 @@ at "${Start_time}" << \
     ${Duration}             \
     yt-dlp                  \
       --audio-multistreams  \
-      -f "${TRACKS}"        \
-      -o "${OUTPUT}"        \
+      -f '${TRACKS}'        \
+      -o '${OUTPUT}'        \
       ${URL}                \
 ) \
-> "${LOG}" 2>&1
+> '${LOG}' 2>&1
 -----------------------------
-'
+"
 eval "$Cmd"
 
 echo "Using some defaults:"
-eval "echo \"$Cmd\""
+echo "$Cmd"
