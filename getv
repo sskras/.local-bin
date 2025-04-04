@@ -13,6 +13,7 @@ OUTPUT="%(title)s [%(id)s].%(ext)s"
 LOG="[2018]-The-Favourite-(Favoritė)-FHD.2025-04-04-LRT.log"
 
 Cmd="
+cd
 at '${Start_time}' << \
 -----------------------------
 (
