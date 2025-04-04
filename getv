@@ -5,8 +5,9 @@
 
 # Get videos from the internet.
 
+Channel=${1:-lrt}
 Start_time=${1:-now}
-Duration=${2:-60m}
+Duration=${3:-60m}
 URL="https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
 TRACKS="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 OUTPUT="%(title)s [%(id)s].%(ext)s"
