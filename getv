@@ -7,10 +7,10 @@
 
 Start_time=${1:-now}
 Duration=${2:-60}m
-URL="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
+URL="https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
 TRACKS="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 OUTPUT="%(title)s [%(id)s].%(ext)s"
-LOG="[2021]-The-Souvenir-Part-II-(Suvenyras-II)-FHD.2025-01-30-LRT+.log"
+LOG="[2018]-The-Favourite-(Favoritė)-FHD.2025-04-04-LRT.log"
 
 Cmd="
 at '${Start_time}' << \
