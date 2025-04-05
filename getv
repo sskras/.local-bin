@@ -26,7 +26,7 @@ case $Channel in
     ;;
 esac
 
-Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-FHD.2025-04-04-LRT.log}
+Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-FHD.2025-04-04-LRT}.log
 
 Cmd="
 cd
