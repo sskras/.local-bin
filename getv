@@ -12,6 +12,7 @@ TRACKS="hls-audio1-ORG+hls-audio1-LIT"
 OUTPUT="%(title)s [%(id)s]-audio.%(ext)s"
 Curr_date=$(date +%Y-%m-%d)
 Curr_time=$(date +%H:%M:%S)
+Chan_suffix=$(echo ${Channel} | awk '{print toupper($0)}')
 
 case $Channel in
 
@@ -28,7 +29,7 @@ case $Channel in
     ;;
 esac
 
-Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-LRT}audio.log
+Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
 
 Cmd="
 cd
