@@ -9,7 +9,7 @@
   Start_time=${2:-now}
     Duration=${3:-60m}
 
-if echo "${Duration}" | grep -vE '^ *[0-9]+m *$'; then
+if ! expr "${Duration}" : " *[0-9]\+m *"; then
     Starting_secs=$(date -d "$2" +%s)
     Finishing_secs=$(date -d "$3" +%s)
     Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
