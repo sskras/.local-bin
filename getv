@@ -17,7 +17,7 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
   Start_time=$(date --date "${Start_time}" +%H:%M)
         Name=${*:-[YEAR] ORIG (ENG; LITH) ${Start_time}}
         Name=$(echo ${Name} | tr ' {}' '-()')
- Chan_suffix=$(echo ${Channel} | awk '{print toupper($0)}')
+ Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
          Log=${Name}-FHD.${Start_date}-${Chan_suffix}.log
    Audio_log=${Name}-FHD.${Start_date}-${Chan_suffix}audio.log
 
