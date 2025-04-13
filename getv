@@ -8,9 +8,9 @@
 Channel=${1:-lrt}
 Start_time=${2:-now}
 Duration=${3:-60m}
-TRACKS="hls-audio1-ORG+hls-audio1-LIT"
+      Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 Audio_tracks="hls-audio1-ORG+hls-audio1-LIT"
-OUTPUT="%(title)s [%(id)s]-audio.%(ext)s"
+      Output="%(title)s [%(id)s].%(ext)s"
 Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
 Curr_date=$(date +%Y-%m-%d)
 Curr_time=$(date +%H:%M:%S)
@@ -31,7 +31,7 @@ case $Channel in
     ;;
 esac
 
-Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
+      Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}.log
 Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
 
 Cmd="
@@ -45,8 +45,8 @@ at '${Start_time}' << \
     ${Duration}             \
     yt-dlp                  \
       --audio-multistreams  \
-      -f '${TRACKS}'        \
-      -o '${OUTPUT}'        \
+      -f '${Tracks}'        \
+      -o '${Output}'        \
       ${Url}                \
 
 ) \
