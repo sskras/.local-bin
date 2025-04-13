@@ -16,7 +16,7 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
    Curr_time=$(date +%H:%M:%S)
  Chan_suffix=$(echo ${Channel} | awk '{print toupper($0)}')
 
-      Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}.log
+         Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}.log
 Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
 
 dump ()
@@ -44,18 +44,21 @@ case $Channel in
 
   (lrt)
     Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
+    dump
     ;;
 
   (lrt+)
     Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
+    dump
     ;;
 
   (*)
     Url="TODO://unknown-channel"
+    echo "Implement Url for '${Channel}' channel: ${Url}"
+    exit 1
     ;;
 esac
 
-dump
 
 echo "Using some defaults:"
 echo "$Cmd"
