@@ -36,23 +36,23 @@ Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suff
 
 dump ()
 {
-cd
-at "${Start_time}" << \
------------------------------
-(
-  date
-  pwd
-  timeout -s SIGINT         \
-    ${Duration}             \
-    yt-dlp                  \
-      --audio-multistreams  \
-      -f "${Tracks}"        \
-      -o "${Output}"        \
-      ${Url}                \
-
-) \
-> "${Log}" 2>&1
------------------------------
+	cd
+	at "${Start_time}" <<- \
+	-----------------------------
+	(
+	  date
+	  pwd
+	  timeout -s SIGINT         \
+	    ${Duration}             \
+	    yt-dlp                  \
+	      --audio-multistreams  \
+	      -f "${Tracks}"        \
+	      -o "${Output}"        \
+	      ${Url}                \
+	
+	) \
+	> "${Log}" 2>&1
+	-----------------------------
 }
 
 dump
