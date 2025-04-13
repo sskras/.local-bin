@@ -11,6 +11,11 @@ if [ "$1" = "" ]; then
     exit
 fi
 
+# Record using default setting if the only argument is `.`:
+if [ "$*" = "." ]; then
+    set -- ""
+fi
+
      Channel=${1:-lrt}
   Start_time=${2:-now}
     Duration=${3:-60m}
@@ -24,7 +29,9 @@ if ! expr "${Duration}" : " *[0-9]\+m *"; then
     fi
     Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
 fi
-shift 3
+
+[ $# -ge 3 ] && Done_args=3 || Done_args=$#
+shift ${Done_args}
 
       Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 Audio_tracks="hls-audio1-ORG+hls-audio1-LIT"
