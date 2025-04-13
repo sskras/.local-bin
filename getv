@@ -10,6 +10,7 @@ Start_time=${2:-now}
 Duration=${3:-60m}
 TRACKS="hls-audio1-ORG+hls-audio1-LIT"
 OUTPUT="%(title)s [%(id)s]-audio.%(ext)s"
+Curr_date=$(date +%Y-%m-%d)
 
 case $Channel in
 
@@ -26,7 +27,7 @@ case $Channel in
     ;;
 esac
 
-Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-FHD.2025-04-04-LRT}audio.log
+Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-FHD.${Curr_date}-LRT}audio.log
 
 Cmd="
 cd
