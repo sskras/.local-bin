@@ -12,6 +12,10 @@
 if ! expr "${Duration}" : " *[0-9]\+m *"; then
     Starting_secs=$(date -d "$2" +%s)
     Finishing_secs=$(date -d "$3" +%s)
+
+    if [ $Finishing_secs -lt $Starting_secs ]; then
+        Finishing_secs=$(date -d "$3 tomorrow" +%s)
+    fi
     Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
 fi
 shift 3
