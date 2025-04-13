@@ -20,19 +20,18 @@ fi
   Start_time=${2:-now}
     Duration=${3:-60m}
 
+[ $# -le 3 ] && Done_args=$# || Done_args=3
+shift ${Done_args}
+
 if ! expr "${Duration}" : " *[0-9]\+m *"; then
-    Starting_secs=$(date -d "$2" +%s)
-    Finishing_secs=$(date -d "$3" +%s)
+    Starting_secs=$(date -d "${Start_time}" +%s)
+    Finishing_secs=$(date -d "${Duration}" +%s)
 
     if [ $Finishing_secs -lt $Starting_secs ]; then
-        Finishing_secs=$(date -d "$3 tomorrow" +%s)
+        Finishing_secs=$(date -d "${Duration} tomorrow" +%s)
     fi
     Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
 fi
-
-[ $# -ge 3 ] && Done_args=3 || Done_args=$#
-shift ${Done_args}
-
       Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 Audio_tracks="hls-audio1-ORG+hls-audio1-LIT"
       Output="%(title)s [%(id)s].%(ext)s"
