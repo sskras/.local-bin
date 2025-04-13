@@ -23,6 +23,11 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
 
 sched_dump ()
 {
+	if [ "$1" = "--audio-only" ]; then
+	    Tracks=${Audio_tracks}
+	    Output=${Audio_output}
+	       Log=${Audio_log}
+	fi
 	cd
 	at "${Start_time}" <<- \
 	-----------------------------
@@ -58,10 +63,7 @@ case $Channel in
     # And this way (by having secondary, audio-only dump happenig in parallel),
     # it seems to help the full-featured capture to not lose the audio
     # (at least never in the several months long run).
-    Tracks=${Audio_tracks}
-    Output=${Audio_output}
-       Log=${Audio_log}
-    sched_dump
+    sched_dump --audio-only
     ;;
 
   (*)
