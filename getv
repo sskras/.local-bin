@@ -14,9 +14,10 @@ Audio_tracks="hls-audio1-ORG+hls-audio1-LIT"
 Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
    Curr_date=$(date +%Y-%m-%d)
    Curr_time=$(date +%H:%M:%S)
+        Name=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}}
  Chan_suffix=$(echo ${Channel} | awk '{print toupper($0)}')
-         Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}.log
-   Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
+         Log=${Name}-FHD.${Curr_date}-${Chan_suffix}.log
+   Audio_log=${Name}-FHD.${Curr_date}-${Chan_suffix}audio.log
 
 dump ()
 {
