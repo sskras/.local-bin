@@ -16,21 +16,6 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
    Curr_time=$(date +%H:%M:%S)
  Chan_suffix=$(echo ${Channel} | awk '{print toupper($0)}')
 
-case $Channel in
-
-  (lrt)
-    Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
-    ;;
-
-  (lrt+)
-    Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
-    ;;
-
-  (*)
-    Url="TODO://unknown-channel"
-    ;;
-esac
-
       Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}.log
 Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
 
@@ -54,6 +39,21 @@ dump ()
 	> "${Log}" 2>&1
 	-----------------------------
 }
+
+case $Channel in
+
+  (lrt)
+    Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
+    ;;
+
+  (lrt+)
+    Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
+    ;;
+
+  (*)
+    Url="TODO://unknown-channel"
+    ;;
+esac
 
 dump
 
