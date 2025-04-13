@@ -15,9 +15,8 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
    Curr_date=$(date +%Y-%m-%d)
    Curr_time=$(date +%H:%M:%S)
  Chan_suffix=$(echo ${Channel} | awk '{print toupper($0)}')
-
          Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}.log
-Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
+   Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
 
 dump ()
 {
@@ -71,4 +70,17 @@ esac
 
 
 echo "Using some defaults:"
-echo "$Cmd"
+
+# TODO Via:
+#
+# $ diff -u <(at -c 727 | tail -3 | fmt -u) <(at -c 728 | tail -3 | fmt -u) | colordiff
+# --- /dev/fd/63  2025-04-13 16:14:49.596014294 +0300
+# +++ /dev/fd/62  2025-04-13 16:14:49.596014294 +0300
+# @@ -1,5 +1,5 @@
+#    timeout -s SIGINT 60m yt-dlp --audio-multistreams -f
+# -  "hls-audio1-ORG+hls-audio1-LIT+hls-3" -o "%(title)s [%(id)s].%(ext)s"
+# +  "hls-audio1-ORG+hls-audio1-LIT" -o "%(title)s [%(id)s]-audio.%(ext)s"
+#    https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius
+# -) > "[YEAR]-ORIG-(ENG;-LITH)-16:12:16-FHD.2025-04-13-LRT+.log" 2>&1
+# +) > "[YEAR]-ORIG-(ENG;-LITH)-16:12:16-FHD.2025-04-13-LRT+audio.log" 2>&1
+# 
