@@ -21,7 +21,7 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
          Log=${Name}-FHD.${Start_date}-${Chan_suffix}.log
    Audio_log=${Name}-FHD.${Start_date}-${Chan_suffix}audio.log
 
-dump ()
+sched_dump ()
 {
 	cd
 	at "${Start_time}" <<- \
@@ -46,12 +46,12 @@ case $Channel in
 
   (lrt)
     Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
-    dump
+    sched_dump
     ;;
 
   (lrt+)
     Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
-    dump
+    sched_dump
     # Also launch a secondary dump that would capture audio only.
     # It is to help in cases where full-featured capture gets its' audio lost.
     #
@@ -61,7 +61,7 @@ case $Channel in
     Tracks=${Audio_tracks}
     Output=${Audio_output}
        Log=${Audio_log}
-    dump
+    sched_dump
     ;;
 
   (*)
