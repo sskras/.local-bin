@@ -34,9 +34,6 @@ esac
       Log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}.log
 Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
 
-Cmd="
-"
-
 dump ()
 {
 cd
@@ -57,10 +54,8 @@ at "${Start_time}" << \
 > "${Log}" 2>&1
 -----------------------------
 }
-eval "$Cmd"
 
 dump
 
 echo "Using some defaults:"
 echo "$Cmd"
-echo "$Cmd" | awk '/----|^$/ { next } { sub(/^ +/, ""); gsub(/ +/, " "); EOL=" "; if (!match($0, /[()]$/)) EOL="; "; if (match($0, /\(|https|>&1$/)) EOL="\n"; printf("%s%s", $0, EOL) } END { print "" }'
