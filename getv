@@ -50,6 +50,16 @@ case $Channel in
   (lrt+)
     Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
     dump
+    # Also launch a secondary dump that would capture audio only.
+    # It is to help in cases where full-featured capture gets its' audio lost.
+    #
+    # And this way (by having secondary, audio-only dump happenig in parallel),
+    # it seems to help the full-featured capture to not lose the audio
+    # (at least never in the several months long run).
+    Tracks=${Audio_tracks}
+    Output=${Audio_output}
+       Log=${Audio_log}
+    dump
     ;;
 
   (*)
