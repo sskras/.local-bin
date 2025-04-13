@@ -35,8 +35,12 @@ esac
 Audio_log=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}-FHD.${Curr_date}-${Chan_suffix}}audio.log
 
 Cmd="
+"
+
+dump ()
+{
 cd
-at '${Start_time}' << \
+at "${Start_time}" << \
 -----------------------------
 (
   date
@@ -45,15 +49,17 @@ at '${Start_time}' << \
     ${Duration}             \
     yt-dlp                  \
       --audio-multistreams  \
-      -f '${Tracks}'        \
-      -o '${Output}'        \
+      -f "${Tracks}"        \
+      -o "${Output}"        \
       ${Url}                \
 
 ) \
-> '${Log}' 2>&1
+> "${Log}" 2>&1
 -----------------------------
-"
+}
 eval "$Cmd"
+
+dump
 
 echo "Using some defaults:"
 echo "$Cmd"
