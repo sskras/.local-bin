@@ -8,13 +8,15 @@
      Channel=${1:-lrt}
   Start_time=${2:-now}
     Duration=${3:-60m}
+       shift 3
       Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 Audio_tracks="hls-audio1-ORG+hls-audio1-LIT"
       Output="%(title)s [%(id)s].%(ext)s"
 Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
    Curr_date=$(date +%Y-%m-%d)
    Curr_time=$(date +%H:%M:%S)
-        Name=${4:-[YEAR]-ORIG-(ENG;-LITH)-${Curr_time}}
+        Name=${*:-[YEAR] ORIG (ENG; LITH) ${Curr_time}}
+        Name=$(echo ${Name} | sed 's/ /-/g')
  Chan_suffix=$(echo ${Channel} | awk '{print toupper($0)}')
          Log=${Name}-FHD.${Curr_date}-${Chan_suffix}.log
    Audio_log=${Name}-FHD.${Curr_date}-${Chan_suffix}audio.log
