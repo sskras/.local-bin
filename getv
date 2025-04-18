@@ -42,7 +42,7 @@ if ! expr "${Duration}" : " *[0-9]\+m *"; then
     Finishing_secs=$(date -d "${Duration}" +%s)
 
     if [ $Finishing_secs -lt $Starting_secs ]; then
-        Finishing_secs=$(date -d "${Duration} tomorrow" +%s)
+        Finishing_secs=$(date -d "${Duration} ${Starting_date} tomorrow" +%s)
     fi
     Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
 fi
