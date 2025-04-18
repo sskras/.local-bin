@@ -23,15 +23,6 @@ fi
 [ $# -le 3 ] && Done_args=$# || Done_args=3
 shift ${Done_args}
 
-if ! expr "${Duration}" : " *[0-9]\+m *"; then
-    Starting_secs=$(date -d "${Start_time}" +%s)
-    Finishing_secs=$(date -d "${Duration}" +%s)
-
-    if [ $Finishing_secs -lt $Starting_secs ]; then
-        Finishing_secs=$(date -d "${Duration} tomorrow" +%s)
-    fi
-    Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
-fi
       Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
 Audio_tracks="hls-audio1-ORG+hls-audio1-LIT"
       Output="%(title)s [%(id)s].%(ext)s"
@@ -43,6 +34,18 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
          Log=${Name}-FHD.${Start_date}-${Chan_suffix}.log
    Audio_log=${Name}-FHD.${Start_date}-${Chan_suffix}audio.log
+
+# Get the actual duration:
+
+if ! expr "${Duration}" : " *[0-9]\+m *"; then
+    Starting_secs=$(date -d "${Start_time}" +%s)
+    Finishing_secs=$(date -d "${Duration}" +%s)
+
+    if [ $Finishing_secs -lt $Starting_secs ]; then
+        Finishing_secs=$(date -d "${Duration} tomorrow" +%s)
+    fi
+    Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
+fi
 
 sched_dump ()
 {
