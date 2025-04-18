@@ -52,7 +52,7 @@ sched_dump ()
 	       Log=${Audio_log}
 	fi
 	cd
-	at "${Start_time}" <<- \
+	at "${Start_time} ${Start_date}" <<- \
 	-----------------------------
 	(
 	  date
