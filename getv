@@ -32,8 +32,8 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
         Name=${*:-[YEAR] ORIG (ENG; LITH) ${Start_time}}
         Name=$(echo ${Name} | tr ' {}' '-()')
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
-         Log=${Name}-FHD.${Start_date}-${Chan_suffix}.log
-   Audio_log=${Name}-FHD.${Start_date}-${Chan_suffix}audio.log
+         Log=${Name}-FHD.${Start_date}-${Start_time}-${Chan_suffix}.log
+   Audio_log=${Name}-FHD.${Start_date}-${Start_time}-${Chan_suffix}audio.log
 
 # Get the actual duration:
 
