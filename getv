@@ -5,6 +5,9 @@
 
 # Get videos from the internet.
 
+# 0. Fail early:
+set -e
+
 # List scheduled recordings by default:
 if [ "$1" = "" ]; then
     atq -o %F\ %T | sort -Vk 2,3
