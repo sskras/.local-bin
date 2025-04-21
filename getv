@@ -34,6 +34,18 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
          Log=${Name}-FHD.${Start_date}-${Start_time}-${Chan_suffix}.log
    Audio_log=${Name}-FHD.${Start_date}-${Start_time}-${Chan_suffix}audio.log
+Log_name_len=${#Audio_log}
+
+if [ "${Log_name_len}" -gt 255 ]; then
+    echo
+    echo "Longest generated file name of the log exceeds the common limit of 255 chars:"
+    echo
+    echo "${Audio_log}"
+    echo
+    echo "Its' length is ${Log_name_len}."
+    echo "Stopping."
+    exit 2
+fi
 
 # Get the actual duration:
 
