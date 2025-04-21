@@ -52,8 +52,25 @@ if [ "${Log_name_len}" -gt 255 ]; then
     echo "${Audio_log}"
     echo
     echo "Its' length is ${Log_name_len}."
-    echo "Stopping."
-    exit 2
+    echo "Fixing:"
+
+    # UTF-8 Ellipsis symbol occupies 3 additional bytes:
+    Chars_to_truncate=$(( ${Log_name_len} - 255 + 3 ))
+    Ellipsis_UTF8='\u2026'
+    # Via: https://stackoverflow.com/questions/27652458/whats-the-best-way-to-embed-a-unicode-character-in-a-posix-shell-script/27658989#27658989
+
+    New_len=$(( ${#Name} - ${Chars_to_truncate} ))
+    Name=$(env printf '%.*s'${Ellipsis_UTF8} ${New_len} "${Name}" | iconv -c)
+    # Via: https://stackoverflow.com/questions/63430979/how-can-i-truncate-a-line-of-text-longer-than-a-given-length/63431166#63431166
+    # Via: https://stackoverflow.com/questions/18700455/string-trimming-using-linux-cut-respecting-utf8-bondaries/18719951#18719951
+
+    gen_log_fnames
+
+    echo
+    echo "${Log}"
+    echo "${Audio_log}"
+    echo
+    echo "Their length are ${#Log} and ${#Audio_log}."
 fi
 
 # Get the actual duration:
