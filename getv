@@ -49,10 +49,9 @@ if [ "${Log_name_len}" -gt 255 ]; then
     echo
     echo "Longest generated file name of the log exceeds the common limit of 255 chars:"
     echo
-    echo "${Audio_log}"
+    echo "${Log}"
     echo
     echo "Its' length is ${Log_name_len}."
-    echo "Fixing:"
 
     # UTF-8 Ellipsis symbol occupies 3 additional bytes:
     Chars_to_truncate=$(( ${Log_name_len} - 255 + 3 ))
@@ -63,6 +62,12 @@ if [ "${Log_name_len}" -gt 255 ]; then
     Name=$(env printf '%.*s'${Ellipsis_UTF8} ${New_len} "${Name}" | iconv -c)
     # Via: https://stackoverflow.com/questions/63430979/how-can-i-truncate-a-line-of-text-longer-than-a-given-length/63431166#63431166
     # Via: https://stackoverflow.com/questions/18700455/string-trimming-using-linux-cut-respecting-utf8-bondaries/18719951#18719951
+
+    echo
+    echo "  TODO: Save previous fnames into .txt or something"
+    echo
+
+    echo "Fixing:"
 
     gen_log_fnames
 
