@@ -32,12 +32,18 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
         Name=${*:-[YEAR] ORIG (ENG; LITH)}
         Name=$(echo ${Name} | tr ' {}' '-()')
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
+
+gen_log_fnames ()
+{
+    # Make sure the suffix (currently 'Au') is not longer than ${Chan_suffix}
+    # in ${Audio_log}, so ${Log} is always the max length of the two:
+
          Log=${Name}-FHD.${Start_date}-${Start_time}-${Chan_suffix}.log
    Audio_log=${Name}-FHD.${Start_date}-${Start_time}-Au.log
 Log_name_len=${#Log}
+}
 
-# Make sure the suffix (currently 'Au') is not longer than ${Chan_suffix}
-# in ${Audio_log}, so ${Log} is always the max length of the two.
+gen_log_fnames
 
 if [ "${Log_name_len}" -gt 255 ]; then
     echo
