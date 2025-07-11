@@ -28,7 +28,7 @@ shift ${Done_args}
 
      #Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
       Tracks="audio1-ORG+audio1-LIT+5068"
-Audio_tracks="hls-audio1-ORG+hls-audio1-LIT"
+Audio_tracks="audio1-ORG+audio1-LIT"
       Output="%(title)s [%(id)s].%(ext)s"
 Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
   Start_date=$(date --date "${Start_time}" +%Y-%m-%d)
