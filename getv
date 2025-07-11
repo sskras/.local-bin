@@ -28,6 +28,7 @@ shift ${Done_args}
 
      #Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
       Tracks="audio1-ORG+audio1-LIT+5068"
+ LRT2_Tracks="audio1-ORG+audio1-LIT+5365"
 Audio_tracks="audio1-ORG+audio1-LIT"
       Output="%(title)s [%(id)s].%(ext)s"
 Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
@@ -142,6 +143,7 @@ case $Channel in
    # Let us extract URL manually from the upper level:
     Url="https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV2"
     Url="$( curl -s "${Url}" | jq .response.data.content )"
+    Tracks="${LRT2_Tracks}"
     sched_dump
     # Also launch a secondary dump that would capture audio only.
     # It is to help in cases where full-featured capture gets its' audio lost.
