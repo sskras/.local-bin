@@ -124,6 +124,7 @@ case $Channel in
 
   (lrt)
    #Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
+   #
    # 2025-07-11 sskras: LRT streaming interface got updated, so the yt-dlp playlist detector/extractor broke;
     Url="https://stream-syncwords.lrt.lt/out/v1/channel-group-lrt-portal-prod-01/channel-lrt-portal-prod-01/endpoint-lrt-portal-prod-01/index.m3u8"
    # Via: https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV1
@@ -131,7 +132,11 @@ case $Channel in
     ;;
 
   (lrt+)
-    Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
+   #Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
+   #
+   # 2025-07-11 sskras: LRT streaming interface got updated, so the yt-dlp playlist detector/extractor broke.
+   # The manual workaround from LRT does not work with LRT+:
+    Url="https://stream-secure.lrt.lt/plius/master.m3u8"
     sched_dump
     # Also launch a secondary dump that would capture audio only.
     # It is to help in cases where full-featured capture gets its' audio lost.
