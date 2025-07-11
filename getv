@@ -31,7 +31,7 @@ shift ${Done_args}
  LRT2_Tracks="audio1-ORG+audio1-LIT+5365"
 Audio_tracks="audio1-ORG+audio1-LIT"
      #Output="%(title)s [%(id)s].%(ext)s"
-Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
+#udio_output="%(title)s [%(id)s]-audio.%(ext)s"
   Start_date=$(date --date "${Start_time}" +%Y-%m-%d)
   Start_time=$(date --date "${Start_time}" +%H:%M)
         Name=${*:-[YEAR] ORIG (ENG; LITH)}
@@ -48,9 +48,10 @@ gen_fnames ()
          Log=${Name}\ ${Chan_suffix}.log
    Audio_log=${Name}\ Au.log
 Log_name_len=${#Log}
-      # 2025-07-11 sskras: Migrate to custom video output fname too;
+      # 2025-07-11 sskras: Migrate to custom output fnames too;
       # (since the default one broke)
       Output=$( echo ${Log} | sed 's/.log$/.%(ext)s/' )
+Audio_output=$( echo ${Log} | sed 's/.log$/-audio.%(ext)s/' )
 }
 
 gen_fnames
