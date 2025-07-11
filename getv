@@ -36,7 +36,7 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
   Start_time=$(date --date "${Start_time}" +%H:%M)
         Name=${*:-[YEAR] ORIG (ENG; LITH)}
         Name=${Name}-FHD.${Start_date}-${Start_time}
-        Name=$(echo ${Name} | tr ' {}' '-()' | tr '/' '_')
+        Name=$(echo ${Name} | tr ' {}' '-()' | tr '/:' '_')
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
 
 gen_fnames ()
