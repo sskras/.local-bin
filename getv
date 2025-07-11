@@ -35,7 +35,7 @@ Audio_output="%(title)s [%(id)s]-audio.%(ext)s"
   Start_date=$(date --date "${Start_time}" +%Y-%m-%d)
   Start_time=$(date --date "${Start_time}" +%H:%M)
         Name=${*:-[YEAR] ORIG (ENG; LITH)}
-        Name=${Name}-FHD.${Start_date}-${Start_time}
+        Name=${Name}-FHD\ ${Start_date}\ ${Start_time}
         Name=$(echo ${Name} | tr ' {}' '-()' | tr '/:' '_')
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
 
@@ -44,8 +44,8 @@ gen_fnames ()
     # Make sure the suffix (currently 'Au') is not longer than ${Chan_suffix}
     # in ${Audio_log}, so ${Log} is always the max length of the two:
 
-         Log=${Name}-${Chan_suffix}.log
-   Audio_log=${Name}-Au.log
+         Log=${Name}\ ${Chan_suffix}.log
+   Audio_log=${Name}\ Au.log
 Log_name_len=${#Log}
       # 2025-07-11 sskras: Migrate to custom video output fname too;
       # (since the default one broke)
