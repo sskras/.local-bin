@@ -48,8 +48,10 @@ gen_fnames ()
          Log=${Name}\ ${Chan_suffix}.log
    Audio_log=${Name}\ Au.log
 Log_name_len=${#Log}
-      # 2025-07-11 sskras: Migrate to custom output fnames too;
-      # (since the default one broke)
+
+    # 2025-07-11 sskras: Migrate to custom output fnames too;
+    # (since the default one broke)
+
       Output=$( echo ${Log} | sed 's/.log$/.%(ext)s/' )
 Audio_output=$( echo ${Log} | sed 's/.log$/-audio.%(ext)s/' )
 }
