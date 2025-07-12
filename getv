@@ -65,11 +65,13 @@ gen_fnames
 
 if [ "${Log_name_len}" -gt "${Fname_limit}" ]; then
     echo
-    echo "Longest generated file name of the log exceeds the common limit of ${Fname_limit} chars:"
+    echo "Longest generated file name exceeds the calculated limit of ${Fname_limit} chars:"
     echo
-    echo "${Log}"
+    echo "    ${Log}"
     echo
     echo "Its' length is ${Log_name_len}."
+
+    Original_name=${Name}
 
     # UTF-8 Ellipsis symbol occupies 3 additional bytes:
     Chars_to_truncate=$(( ${Log_name_len} - ${Fname_limit} + 3 ))
@@ -90,10 +92,14 @@ if [ "${Log_name_len}" -gt "${Fname_limit}" ]; then
     gen_fnames
 
     echo
-    echo "${Log}"
-    echo "${Audio_log}"
+    echo "    ${Output} "      " (${#Output} chars)"
+    echo "    ${Audio_output}" " (${#Audio_output} chars)"
+    echo "    ${Log} "         " (${#Log} chars)"
+    echo "    ${Audio_log} "   " (${#Audio_log} chars)"
+
     echo
-    echo "Their length are ${#Log} and ${#Audio_log}."
+    echo "Stored the orignal name:"
+    echo "    ${Original_name}"
 fi
 
 # Get the actual duration:
