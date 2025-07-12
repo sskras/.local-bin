@@ -53,7 +53,7 @@ Log_name_len=${#Log}
     # (since the default one broke)
 
       Output=${Name}\ ${Chan_suffix}'.%(ext)s'
-Audio_output=$( echo ${Log} | sed 's/.log$/-audio.%(ext)s/' )
+Audio_output=${Name}\ Au'.%(ext)s'
 }
 
 gen_fnames
