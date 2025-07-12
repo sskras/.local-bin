@@ -40,24 +40,25 @@ Audio_tracks="audio1-ORG+audio1-LIT"
   Start_time=$(date --date "${Start_time}" +%H:%M)
         Name=${*:-[YEAR] ORIG (ENG; LITH)}
         Name=$(echo ${Name} | tr ' {}' '-()')
-        Name=${Name}-FHD\ ${Start_date}\ ${Start_time}
-        Name=$(echo ${Name} | tr '/:' '_')
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
 
 gen_fnames ()
 {
+    Ext_name=${Name}-FHD\ ${Start_date}\ ${Start_time}
+    Ext_name=$(echo ${Ext_name} | tr '/:' '_')
+
     # Make sure the suffix (currently 'Au') is not longer than ${Chan_suffix}
     # in ${Audio_log}, so ${Log} is always the max length of the two:
 
-         Log=${Name}\ ${Chan_suffix}.log
-   Audio_log=${Name}\ Au.log
+         Log=${Ext_name}\ ${Chan_suffix}.log
+   Audio_log=${Ext_name}\ Au.log
 Log_name_len=${#Log}
 
     # 2025-07-11 sskras: Migrate to custom output fnames too;
     # (since the default one broke)
 
-      Output=${Name}\ ${Chan_suffix}'.%(ext)s'
-Audio_output=${Name}\ Au'.%(ext)s'
+      Output=${Ext_name}\ ${Chan_suffix}'.%(ext)s'
+Audio_output=${Ext_name}\ Au'.%(ext)s'
 }
 
 gen_fnames
