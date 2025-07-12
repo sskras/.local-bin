@@ -152,6 +152,21 @@ sched_dump ()
 	    echo
 	  fi
 	  :
+	    # Launch another job to calculate checksums:
+	    at now <<- \
+		--------------------------------------
+		(
+		    sleep 4
+		    echo
+		    echo "Calculating the checksums:"
+		    echo
+		    rhash --sha1 -P                  \
+		      "${Ext_name}"*.mkv             \
+		      "${Ext_name}"*.log             \
+		      "${Ext_name}"*.txt             \
+		)
+		--------------------------------------
+	    # Quit current job ASAP to close the log.
 	) \
 	> "${Log}" 2>&1
 	-----------------------------
