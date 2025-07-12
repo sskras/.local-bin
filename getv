@@ -26,8 +26,9 @@ fi
 [ $# -le 3 ] && Done_args=$# || Done_args=3
 shift ${Done_args}
 
+# TODO: Unhardcode the 5 -- length of the `.part` appended by yt-dlp to the output fnames temporarily.
 # TODO: Unhardcode the FS imposed limit:
- Fname_limit=255
+ Fname_limit=$(( 255 - 5 ))
 
      #Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
       Tracks="audio1-ORG+audio1-LIT+5068"
