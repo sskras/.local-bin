@@ -56,27 +56,31 @@ Audio_output=${Ext_name}\ Au'.%(ext)s'
 
          Log=${Ext_name}\ ${Chan_suffix}.log
    Audio_log=${Ext_name}\ Au.log
-Log_name_len=${#Log}
 
     # File to store the name (just in case it's too long):
 
 Name_storage=${Ext_name}\ ${Chan_suffix}.txt
+
+    # Name of the checksum file + its' length:
+
+    Cheksums=${Ext_name}\ ${Chan_suffix}.sha1
+Cheksums_len=${#Cheksums}
 }
 
 gen_fnames
 
-if [ "${Log_name_len}" -gt "${Fname_limit}" ]; then
+if [ "${Cheksums_len}" -gt "${Fname_limit}" ]; then
     echo
     echo "Longest generated file name exceeds the calculated limit of ${Fname_limit} chars:"
     echo
-    echo "    ${Log}"
+    echo "    ${Cheksums}"
     echo
-    echo "Its' length is ${Log_name_len}. Fixing:"
+    echo "Its' length is ${Cheksums_len}. Fixing:"
 
     Original_name=${Name}
 
     # UTF-8 Ellipsis symbol occupies 3 additional bytes:
-    Chars_to_truncate=$(( ${Log_name_len} - ${Fname_limit} + 3 ))
+    Chars_to_truncate=$(( ${Cheksums_len} - ${Fname_limit} + 3 ))
     Ellipsis_UTF8='\u2026'
     # Via: https://stackoverflow.com/questions/27652458/whats-the-best-way-to-embed-a-unicode-character-in-a-posix-shell-script/27658989#27658989
 
@@ -156,14 +160,13 @@ sched_dump ()
 	    at now <<- \
 		--------------------------------------
 		(
-		    sleep 4
-		    echo
 		    echo "Calculating the checksums:"
 		    echo
 		    rhash --sha1 -P                  \
 		      "${Ext_name}"*.mkv             \
 		      "${Ext_name}"*.log             \
 		      "${Ext_name}"*.txt             \
+		  | tee "${Cheksums}".sha1
 		)
 		--------------------------------------
 	    # Quit current job ASAP to close the log.
