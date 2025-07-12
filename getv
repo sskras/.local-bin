@@ -57,6 +57,10 @@ Audio_output=${Ext_name}\ Au'.%(ext)s'
          Log=${Ext_name}\ ${Chan_suffix}.log
    Audio_log=${Ext_name}\ Au.log
 Log_name_len=${#Log}
+
+    # File to store the name (just in case it's too long):
+
+Name_storage=${Ext_name}\ ${Chan_suffix}.txt
 }
 
 gen_fnames
@@ -80,9 +84,6 @@ if [ "${Log_name_len}" -gt "${Fname_limit}" ]; then
     Name=$(env printf '%.*s'${Ellipsis_UTF8} ${New_len} "${Name}" | iconv -c)
     # Via: https://stackoverflow.com/questions/63430979/how-can-i-truncate-a-line-of-text-longer-than-a-given-length/63431166#63431166
     # Via: https://stackoverflow.com/questions/18700455/string-trimming-using-linux-cut-respecting-utf8-bondaries/18719951#18719951
-
-    echo
-    echo "  TODO: Save previous fnames into .txt or something"
 
     gen_fnames
 
@@ -124,6 +125,15 @@ sched_dump ()
 	(
 	  date
 	  pwd
+	  :
+	  if [ -n "${Original_name}" ]; then
+	    echo
+	    echo "The untruncated name:"
+	    echo
+	    echo "${Original_name}" | tee "${Name_storage}"
+	    echo
+	  fi
+	  :
 	  timeout -s SIGINT         \
 	    ${Duration}             \
 	    yt-dlp                  \
@@ -131,7 +141,12 @@ sched_dump ()
 	      -f "${Tracks}"        \
 	      -o "${Output}"        \
 	      ${Url}                \
-	
+	    #
+	  :
+	  if [ -n "${Original_name}" ]; then
+	    touch "${Name_storage}"
+	  fi
+	  :
 	) \
 	> "${Log}" 2>&1
 	-----------------------------
