@@ -115,6 +115,7 @@ fi
 sched_dump ()
 {
 	if [ "$1" = "--audio-only" ]; then
+	     Audio=1
 	    Tracks=${Audio_tracks}
 	    Output=${Audio_output}
 	       Log=${Audio_log}
@@ -130,7 +131,7 @@ sched_dump ()
 	    echo
 	    echo "The untruncated name:"
 	    echo
-	    echo "${Original_name}" | tee "${Name_storage}"
+	    echo "${Original_name}"
 	    echo
 	  fi
 	  :
@@ -143,8 +144,12 @@ sched_dump ()
 	      ${Url}                \
 	    #
 	  :
+	  [ -n "${Audio}" ] && exit 0
+	  :
 	  if [ -n "${Original_name}" ]; then
-	    touch "${Name_storage}"
+	    echo
+	    echo "${Original_name}" > "${Name_storage}"
+	    echo
 	  fi
 	  :
 	) \
