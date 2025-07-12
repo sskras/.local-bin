@@ -34,8 +34,6 @@ shift ${Done_args}
       Tracks="audio1-ORG+audio1-LIT+5068"
  LRT2_Tracks="audio1-ORG+audio1-LIT+5365"
 Audio_tracks="audio1-ORG+audio1-LIT"
-     #Output="%(title)s [%(id)s].%(ext)s"
-#udio_output="%(title)s [%(id)s]-audio.%(ext)s"
   Start_date=$(date --date "${Start_time}" +%Y-%m-%d)
   Start_time=$(date --date "${Start_time}" +%H:%M)
         Name=${*:-[YEAR] ORIG (ENG; LITH)}
@@ -47,18 +45,18 @@ gen_fnames ()
     Ext_name=${Name}-FHD\ ${Start_date}\ ${Start_time}
     Ext_name=$(echo ${Ext_name} | tr '/:' '_')
 
+    # 2025-07-11 sskras: Generate custom output fnames;
+    # (since the default ones broke)
+
+      Output=${Ext_name}\ ${Chan_suffix}'.%(ext)s'
+Audio_output=${Ext_name}\ Au'.%(ext)s'
+
     # Make sure the suffix (currently 'Au') is not longer than ${Chan_suffix}
     # in ${Audio_log}, so ${Log} is always the max length of the two:
 
          Log=${Ext_name}\ ${Chan_suffix}.log
    Audio_log=${Ext_name}\ Au.log
 Log_name_len=${#Log}
-
-    # 2025-07-11 sskras: Migrate to custom output fnames too;
-    # (since the default one broke)
-
-      Output=${Ext_name}\ ${Chan_suffix}'.%(ext)s'
-Audio_output=${Ext_name}\ Au'.%(ext)s'
 }
 
 gen_fnames
