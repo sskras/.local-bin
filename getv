@@ -26,6 +26,9 @@ fi
 [ $# -le 3 ] && Done_args=$# || Done_args=3
 shift ${Done_args}
 
+# TODO: Unhardcode the FS imposed limit:
+ Fname_limit=255
+
      #Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
       Tracks="audio1-ORG+audio1-LIT+5068"
  LRT2_Tracks="audio1-ORG+audio1-LIT+5365"
@@ -58,16 +61,16 @@ Audio_output=${Name}\ Au'.%(ext)s'
 
 gen_fnames
 
-if [ "${Log_name_len}" -gt 255 ]; then
+if [ "${Log_name_len}" -gt "${Fname_limit}" ]; then
     echo
-    echo "Longest generated file name of the log exceeds the common limit of 255 chars:"
+    echo "Longest generated file name of the log exceeds the common limit of ${Fname_limit} chars:"
     echo
     echo "${Log}"
     echo
     echo "Its' length is ${Log_name_len}."
 
     # UTF-8 Ellipsis symbol occupies 3 additional bytes:
-    Chars_to_truncate=$(( ${Log_name_len} - 255 + 3 ))
+    Chars_to_truncate=$(( ${Log_name_len} - ${Fname_limit} + 3 ))
     Ellipsis_UTF8='\u2026'
     # Via: https://stackoverflow.com/questions/27652458/whats-the-best-way-to-embed-a-unicode-character-in-a-posix-shell-script/27658989#27658989
 
