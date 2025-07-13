@@ -30,6 +30,8 @@ shift ${Done_args}
 # TODO: Unhardcode the FS imposed limit:
  Fname_limit=$(( 255 - 5 ))
 
+   Rhash_log="rhash-cummulative.log"
+
      #Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
       Tracks="audio1-ORG+audio1-LIT+5068"
  LRT2_Tracks="audio1-ORG+audio1-LIT+5365"
@@ -160,14 +162,15 @@ sched_dump ()
 	    at now <<- \
 		--------------------------------------
 		(
-		    echo "Calculating the checksums:"
+		    date
 		    echo
 		    rhash --sha1 -P                  \
 		      "${Ext_name}"*.mkv             \
 		      "${Ext_name}"*.log             \
 		      "${Ext_name}"*.txt             \
 		  | tee "${Cheksums}".sha1
-		)
+		)                                    \
+		>> "${Rhash_log}"
 		--------------------------------------
 	    # Quit current job ASAP to close the log.
 	) \
