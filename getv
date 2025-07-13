@@ -162,6 +162,10 @@ sched_dump ()
 	    at now <<- \
 		--------------------------------------
 		(
+		    # Wait for the audio batch, if any
+		    sleep 10
+		    # TODO: Improve sync ^
+		    :
 		    echo "Calculating: ${Original_name}"
 		    echo
 		    rhash --sha1 -P                  \
