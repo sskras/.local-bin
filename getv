@@ -128,7 +128,7 @@ sched_dump ()
 	fi
 	cd
 	at "${Start_time} ${Start_date}" <<- \
-	-----------------------------
+	----------------------------------------------------
 	(
 	    date
 	    pwd
@@ -141,13 +141,13 @@ sched_dump ()
 	        echo
 	    fi
 	    :
-	    timeout -s SIGINT         \
-	      ${Duration}             \
-	      yt-dlp                  \
-	        --audio-multistreams  \
-	        -f "${Tracks}"        \
-	        -o "${Output}"        \
-	        ${Url}                \
+	    timeout -s SIGINT                              \
+	      ${Duration}                                  \
+	      yt-dlp                                       \
+	        --audio-multistreams                       \
+	        -f "${Tracks}"                             \
+	        -o "${Output}"                             \
+	        ${Url}                                     \
 	      #
 	    :
 	    [ -n "${Audio}" ] && exit 0
@@ -160,7 +160,7 @@ sched_dump ()
 	    :
 	    # Launch another job to calculate checksums:
 	    at now <<- \
-		--------------------------------------
+		--------------------------------------------
 		(
 		    # Wait for the audio batch, if any
 		    sleep 10
@@ -168,21 +168,21 @@ sched_dump ()
 		    :
 		    echo "Calculating: ${Original_name}"
 		    echo
-		    rhash --sha1 -P                  \
-		      "${Ext_name}"*.mkv             \
-		      "${Ext_name}"*.log             \
-		      "${Ext_name}"*.txt             \
+		    rhash --sha1 -P                        \
+		      "${Ext_name}"*.mkv                   \
+		      "${Ext_name}"*.log                   \
+		      "${Ext_name}"*.txt                   \
 		  | tee "${Cheksums}"
 		    echo
-		)                                    \
-		2>&1                                 \
-		| ts                                 \
+		)                                          \
+		2>&1                                       \
+		| ts                                       \
 		>> "${Rhash_log}"
-		--------------------------------------
+		--------------------------------------------
 	    # Quit current job ASAP to close the log.
 	) \
 	> "${Log}" 2>&1
-	-----------------------------
+	----------------------------------------------------
 }
 
 case $Channel in
