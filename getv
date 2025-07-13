@@ -241,3 +241,4 @@ echo "Using some defaults:"
 # -) > "[YEAR]-ORIG-(ENG;-LITH)-16:12:16-FHD.2025-04-13-LRT+.log" 2>&1
 # +) > "[YEAR]-ORIG-(ENG;-LITH)-16:12:16-FHD.2025-04-13-LRT+audio.log" 2>&1
 # 
+# vim: ts=4 sw=4 noet
