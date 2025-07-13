@@ -167,13 +167,12 @@ sched_dump ()
 		    # TODO: Improve sync ^
 		    :
 		    echo "Calculating: ${Original_name}"
-		    echo
 		    rhash --sha1 -P                        \
 		      "${Ext_name}"*.mkv                   \
 		      "${Ext_name}"*.log                   \
 		      "${Ext_name}"*.txt                   \
 		  | tee "${Cheksums}"
-		    echo
+		    echo ...............................................................................
 		)                                          \
 		2>&1                                       \
 		| ts                                       \
