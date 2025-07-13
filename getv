@@ -172,7 +172,7 @@ sched_dump ()
 		      "${Ext_name}"*.mkv             \
 		      "${Ext_name}"*.log             \
 		      "${Ext_name}"*.txt             \
-		  | tee "${Cheksums}".sha1
+		  | tee "${Cheksums}"
 		    echo
 		)                                    \
 		| ts                                 \
