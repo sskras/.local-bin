@@ -162,14 +162,16 @@ sched_dump ()
 	    at now <<- \
 		--------------------------------------
 		(
-		    date
+		    echo "Calculating: ${Original_name}"
 		    echo
 		    rhash --sha1 -P                  \
 		      "${Ext_name}"*.mkv             \
 		      "${Ext_name}"*.log             \
 		      "${Ext_name}"*.txt             \
 		  | tee "${Cheksums}".sha1
+		    echo
 		)                                    \
+		| ts                                 \
 		>> "${Rhash_log}"
 		--------------------------------------
 	    # Quit current job ASAP to close the log.
