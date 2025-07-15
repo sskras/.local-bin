@@ -124,6 +124,30 @@ resolve_the_playlist ()
     # For LRT, extract dynamic/tokenized playlist
     # URL from the playlist residing at fixed URL:
     curl -s $1 | jq .response.data.content
+
+    # We start from the public streaming pages:
+    #
+    # LRT : "https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
+    # LRT+: "https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
+
+    # Next, the static playlist URLs are extracted by hand:
+    #
+    # LRT : "https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV1"
+    # LRT+: "https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV2"
+
+    # Then the dynamic/tokenized/expiring URLs are extracted from the received JSON:
+    #
+    # LRT : "https://stream-syncwords.lrt.lt/out/v1/channel-group-lrt-portal-prod-01/channel-lrt-portal-prod-01/endpoint-lrt-portal-prod-01/index.m3u8?Expires=1752628991&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zdHJlYW0tc3luY3dvcmRzLmxydC5sdC9vdXQvKiIsIkNvbmRpdGlvbiI6eyJJcEFkZHJlc3MiOiB7IkFXUzpTb3VyY2VJcCI6Ijc4LjU2LjIwMC4yMTUifSwiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3NTI2Mjg5OTF9fX1dfQ__&Signature=JlAfTuYXPOrao5ZTYVMXFc0~nRolI6wAw7FUmRkUHqfrv52hAOS6dR59P8yUSwrYrwFGwXhPPjTB24LkYi8HbTdbQglghsvs9cR1SyobhhfYOG9TBYef3Bn11O5V93fYLZ7yaLz8EYxnq6i9fp2aYER2Maq-YPZzRvYREpt9zfPkv~SnqJfcHoF0q7wLsKuyH-z5URnm5kcEo4juwAlpPM92r2mRlbbCg5t~G2t3CvVmgUtA4~WIwR3FPT4eSF-WMB8fUnT3xDZM0v5-w5x2vmMNvIbgSFgUn~6HC9OPJWCjmbMBzTVme4tr24n1P7ed26IQLXnHc6uY3AHCoRHHFA__&Key-Pair-Id=KAKLAV9ALHXL"
+    # LRT+: "https://stream-secure.lrt.lt/plius/master.m3u8?Expires=1752267053&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zdHJlYW0tc2VjdXJlLmxydC5sdC9wbGl1cy8qIiwiQ29uZGl0aW9uIjp7IklwQWRkcmVzcyI6IHsiQVdTOlNvdXJjZUlwIjoiODQuMTUuMTc4Ljc2In0sIkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzUyMjY3MDUzfX19XX0_&Signature=k5fU8WspD6kpCUQb9uKcd3sgIXzwxruChUVozF1m9NR6IShhNRMRU23AGcfmGWbFXxeV8IxVI7bIIf7Bt3McfEyGrW9vJDRa0JNeXGELbNB-VBzemn49W90zk~TIhzowHLuFr2KV6XnZqNv-QCnSx3XBPeUqvbazfkPTfI3cfV~W8OVTq3sGvXCQD690pna7cRZjSFF-cXMxVBvAyJT5XlTFRyR0IwHRmRVQoBKoZAfnOYt1osuxfJ8JWTf7R91mW09iUXPJJ9QZcW-Z6R0bkVtt92PZW8sYQSNUFbHBQ4frF8O7R3OeaxsKNPWVaXBYu1Sxr6vOZPUot9B6xa1FSg__&Key-Pair-Id=KAKLAV9ALHXL"
+
+    # While the LRT version works fine with the key stripped,
+    # ... the LRT+ version returns HTTP 403 without the key:
+    #
+    # <Code>MissingKey</Code><Message>Missing Key-Pair-Id query parameter or cookie value</Message>
+    #
+    # Seems like the dynamic key/cookie is used for sessions auth, which
+    # restricts the stream's recipient both in time and per client's IP address.
+    # Thus copying the URL to another machine does not work.
 }
 
 sched_dump ()
@@ -214,14 +238,6 @@ case $Channel in
 
   (lrt+)
    #Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
-   #
-   # 2025-07-11 sskras: LRT streaming interface got updated, so the yt-dlp playlist detector/extractor broke.
-   # The manual workaround from LRT does not work with LRT+:
-   #Url="https://stream-secure.lrt.lt/plius/master.m3u8"
-    #
-   # Seems like it uses a dynamic hash/key/cookie, so copying it out from anothe machine does not work too:
-   #Url="https://stream-secure.lrt.lt/plius/master.m3u8?Expires=1752267053&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zdHJlYW0tc2VjdXJlLmxydC5sdC9wbGl1cy8qIiwiQ29uZGl0aW9uIjp7IklwQWRkcmVzcyI6IHsiQVdTOlNvdXJjZUlwIjoiODQuMTUuMTc4Ljc2In0sIkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzUyMjY3MDUzfX19XX0_&Signature=k5fU8WspD6kpCUQb9uKcd3sgIXzwxruChUVozF1m9NR6IShhNRMRU23AGcfmGWbFXxeV8IxVI7bIIf7Bt3McfEyGrW9vJDRa0JNeXGELbNB-VBzemn49W90zk~TIhzowHLuFr2KV6XnZqNv-QCnSx3XBPeUqvbazfkPTfI3cfV~W8OVTq3sGvXCQD690pna7cRZjSFF-cXMxVBvAyJT5XlTFRyR0IwHRmRVQoBKoZAfnOYt1osuxfJ8JWTf7R91mW09iUXPJJ9QZcW-Z6R0bkVtt92PZW8sYQSNUFbHBQ4frF8O7R3OeaxsKNPWVaXBYu1Sxr6vOZPUot9B6xa1FSg__&Key-Pair-Id=KAKLAV9ALHXL"
-    #
     # 2025-07-11: Switch to the dynamic URL resolution;
     Url="https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV2"
     Url=$( resolve_the_playlist ${Url} )
