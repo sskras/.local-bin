@@ -201,9 +201,11 @@ case $Channel in
 
   (lrt)
    #Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
-   #
-   # 2025-07-11 sskras: LRT streaming interface got updated, so the yt-dlp playlist detector/extractor broke;
+    # 2025-07-11: LRT streaming interface (Mediateka) got a maajor update,
+    # and the old yt-dlp's playlist extractor for LRT broke.
+    # Switch to the new, manually extracted URL:
    #Url="https://stream-syncwords.lrt.lt/out/v1/channel-group-lrt-portal-prod-01/channel-lrt-portal-prod-01/endpoint-lrt-portal-prod-01/index.m3u8"
+    # 2025-07-15: Switch to the dynamic URL resolution (just as with LRT+ / LTV2);
     Url="https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV1"
     Url=$( resolve_the_playlist ${Url} )
 
@@ -220,7 +222,7 @@ case $Channel in
    # Seems like it uses a dynamic hash/key/cookie, so copying it out from anothe machine does not work too:
    #Url="https://stream-secure.lrt.lt/plius/master.m3u8?Expires=1752267053&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zdHJlYW0tc2VjdXJlLmxydC5sdC9wbGl1cy8qIiwiQ29uZGl0aW9uIjp7IklwQWRkcmVzcyI6IHsiQVdTOlNvdXJjZUlwIjoiODQuMTUuMTc4Ljc2In0sIkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzUyMjY3MDUzfX19XX0_&Signature=k5fU8WspD6kpCUQb9uKcd3sgIXzwxruChUVozF1m9NR6IShhNRMRU23AGcfmGWbFXxeV8IxVI7bIIf7Bt3McfEyGrW9vJDRa0JNeXGELbNB-VBzemn49W90zk~TIhzowHLuFr2KV6XnZqNv-QCnSx3XBPeUqvbazfkPTfI3cfV~W8OVTq3sGvXCQD690pna7cRZjSFF-cXMxVBvAyJT5XlTFRyR0IwHRmRVQoBKoZAfnOYt1osuxfJ8JWTf7R91mW09iUXPJJ9QZcW-Z6R0bkVtt92PZW8sYQSNUFbHBQ4frF8O7R3OeaxsKNPWVaXBYu1Sxr6vOZPUot9B6xa1FSg__&Key-Pair-Id=KAKLAV9ALHXL"
     #
-   # Let us extract URL manually from the upper level:
+    # 2025-07-11: Switch to the dynamic URL resolution;
     Url="https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV2"
     Url=$( resolve_the_playlist ${Url} )
     Tracks="${LRT2_Tracks}"
