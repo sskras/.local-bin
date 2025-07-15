@@ -109,7 +109,7 @@ fi
 
 # Get the actual duration:
 
-if ! expr "${Duration}" : " *[0-9]\+m *"; then
+if ! expr "${Duration}" : " *[0-9]\+m *" >/dev/null; then
     Starting_secs=$(date -d "${Start_time}" +%s)
     Finishing_secs=$(date -d "${Duration}" +%s)
 
@@ -160,7 +160,7 @@ sched_dump ()
 	fi
 	cd
 	at "${Start_time} ${Start_date}" <<- \
-	----------------------------------------------------
+	---------------------------------------------------- 2>&1 |
 	(
 	    date
 	    pwd
@@ -223,6 +223,7 @@ sched_dump ()
 	) \
 	> "${Log}" 2>&1
 	----------------------------------------------------
+	grep -v 'warning: commands will be executed using /bin/sh'
 }
 
 case $Channel in
