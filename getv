@@ -156,7 +156,12 @@ sched_dump ()
 	        -f "${Tracks}"                             \
 	        -o "${Output}"                             \
 	        ${Url}                                     \
-	      #
+	      ||
+	    {
+	        echo "Capture failed (\$?), cleaning up:"
+	        rm -rv "${Ext_name}"*.part
+	        exit
+	    }
 	    :
 	    [ -n "${Audio}" ] && exit 0
 	    :
