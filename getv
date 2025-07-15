@@ -182,6 +182,9 @@ sched_dump ()
 	        ${Url}                                     \
 	      ||
 	    {
+	        # Wait for yt-dlp / ffmpeg to finish:
+	        sleep 4
+	        echo
 	        echo "Capture failed (\$?), cleaning up:"
 	        rm -rv "${Ext_name}"*.part
 	        exit
