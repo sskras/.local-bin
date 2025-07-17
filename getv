@@ -208,12 +208,14 @@ sched_dump ()
 		    sleep 10
 		    # TODO: Improve sync ^
 		    :
+		    echo
 		    echo "Calculating: ${Original_name}"
 		    rhash --sha1 -P                        \
 		      "${Ext_name}"*.mkv                   \
 		      "${Ext_name}"*.log                   \
 		      "${Ext_name}"*.txt                   \
 		  | tee "${Cheksums}"
+		    echo
 		    echo ${Log_sep}
 		)                                          \
 		2>&1                                       \
