@@ -150,7 +150,6 @@ resolve_the_playlist ()
     # Seems like the dynamic key/cookie is used for sessions auth, which
     # restricts the stream's recipient both in time and per client's IP address.
     # Thus copying the URL to another machine does not work.
-eval "${Fn_lib}"
 
 sched_dump ()
 {
@@ -164,8 +163,10 @@ sched_dump ()
 	at "${Start_time} ${Start_date}" <<- \
 	---------------------------------------------------- 2>&1 |
 	(
+	    eval "${Fn_lib}"
 	    date
 	    pwd
+	    Url=$( resolve_the_playlist ${Url} )
 	    :
 	    if [ -n "${Original_name}" ]; then
 	        echo
@@ -182,7 +183,7 @@ sched_dump ()
 	        --audio-multistreams                       \
 	        -f "${Tracks}"                             \
 	        -o "${Output}"                             \
-	        ${Url}                                     \
+	        \${Url}                                    \
 	      ||
 	    {
 	        Capture_status=\$?
@@ -241,7 +242,6 @@ case $Channel in
    #Url="https://stream-syncwords.lrt.lt/out/v1/channel-group-lrt-portal-prod-01/channel-lrt-portal-prod-01/endpoint-lrt-portal-prod-01/index.m3u8"
     # 2025-07-15: Switch to the dynamic URL resolution (just as with LRT+ / LTV2);
     Url="https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV1"
-    Url=$( resolve_the_playlist ${Url} )
 
     sched_dump
     ;;
@@ -250,7 +250,6 @@ case $Channel in
    #Url="https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius"
     # 2025-07-11: Switch to the dynamic URL resolution;
     Url="https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=LTV2"
-    Url=$( resolve_the_playlist ${Url} )
     Tracks="${LRT2_Tracks}"
 
     sched_dump
