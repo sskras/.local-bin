@@ -119,13 +119,14 @@ if ! expr "${Duration}" : " *[0-9]\+m *" >/dev/null; then
     Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
 fi
 
+Fn_lib='
 resolve_the_playlist ()
 {
     # For LRT, extract dynamic/tokenized playlist
     # URL from the playlist residing at fixed URL:
     curl -s $1 | jq .response.data.content
 }
-
+'
     # We start from the public streaming pages:
     #
     # LRT : "https://www.lrt.lt/mediateka/tiesiogiai/lrt-televizija"
@@ -149,6 +150,7 @@ resolve_the_playlist ()
     # Seems like the dynamic key/cookie is used for sessions auth, which
     # restricts the stream's recipient both in time and per client's IP address.
     # Thus copying the URL to another machine does not work.
+eval "${Fn_lib}"
 
 sched_dump ()
 {
