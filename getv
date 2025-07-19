@@ -124,7 +124,7 @@ resolve_the_playlist ()
 {
     # For LRT, extract dynamic/tokenized playlist
     # URL from the playlist residing at fixed URL:
-    curl -s $1 | jq .response.data.content
+    curl -s $1 | jq -r .response.data.content
 }
 '
     # We start from the public streaming pages:
@@ -163,10 +163,10 @@ sched_dump ()
 	at "${Start_time} ${Start_date}" <<- \
 	---------------------------------------------------- 2>&1 |
 	(
-	    eval "${Fn_lib}"
+	    eval '${Fn_lib}'
 	    date
 	    pwd
-	    Url=$( resolve_the_playlist ${Url} )
+	    Url=\$( resolve_the_playlist ${Url} )
 	    :
 	    if [ -n "${Original_name}" ]; then
 	        echo
