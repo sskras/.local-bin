@@ -166,7 +166,7 @@ sched_dump ()
 	    eval '${Fn_lib}'
 	    date
 	    pwd
-	    Url=\$( resolve_the_playlist ${Url} )
+	    Url=\$( resolve_the_playlist "${Url}" )
 	    :
 	    if [ -n "${Original_name}" ]; then
 	        echo
@@ -183,7 +183,7 @@ sched_dump ()
 	        --audio-multistreams                       \
 	        -f "${Tracks}"                             \
 	        -o "${Output}"                             \
-	        \${Url}                                    \
+	        "\${Url}"                                  \
 	      ||
 	    {
 	        Capture_status=\$?
