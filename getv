@@ -25,7 +25,15 @@ if expr "$1" : "^[0-9]\+$" >/dev/null; then
             Cmd_started = 1
         }
 
-        Cmd_started && ! /^$/ \
+        # Skip the head and the tail both preceding and following our cmd:
+
+        ! Cmd_started || /^$/ \
+        {
+            next
+        }
+
+        # Display the actual cmd:
+
         {
             print
         }
