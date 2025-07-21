@@ -31,7 +31,6 @@ shift ${Done_args}
  Fname_limit=$(( 255 - 5 ))
 
    Rhash_log="rhash-cummulative.log"
-     Log_sep="-------------------------------------------------------------------------------"
 
      #Tracks="hls-audio1-ORG+hls-audio1-LIT+hls-3"
       Tracks="audio1-ORG+audio1-LIT+5068"
@@ -218,8 +217,8 @@ sched_dump ()
 	          "${Ext_name}"*.log                   \
 	          "${Ext_name}"*.txt                   \
 	      | tee "${Cheksums}"
-	        echo
-	        echo ${Log_sep}
+	        # Trailing NL and the log separator:
+	        printf "\n%80s\n" | tr " " -
 	    )                                          \
 	    2>&1                                       \
 	    | ts                                       \
