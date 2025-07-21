@@ -46,6 +46,8 @@ if expr "$1" : "^[0-9]\+$" >/dev/null; then
                 gsub(/ \| /, "\n" Pipe_indent "| ")         # break the line just before it,
             }                                               # and also retain the indent.
 
+            gsub(" <<- ", "&\\\n" )                         # Move start-of-heredoc marker to NL
+
             printf Orig_indent                              # Restore the indentation.
             print                                           # Print the xformed line.
         }
