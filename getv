@@ -35,7 +35,10 @@ if expr "$1" : "^[0-9]\+$" >/dev/null; then
         # Display the actual cmd:
 
         {
+            match($0, "^[ \t]+")                    # Search for indentation.
+            Indent = substr($0, RSTART, RLENGTH)    # Save it, if any.
             sub(//, "", $1)                         # Collapse the multichar seps.
+            printf Indent                           # Restore the indentation.
             print
         }
         '
