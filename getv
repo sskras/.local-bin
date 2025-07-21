@@ -36,15 +36,17 @@ if expr "$1" : "^[0-9]\+$" >/dev/null; then
 
         {
             match($0, "^[ \t]+")                            # Search for indentation.
-            Indent = substr($0, RSTART, RLENGTH)    # Save it, if any.
+            Orig_indent = substr($0, RSTART, RLENGTH)       # Save it, if any.
             Pipe_indent = substr($0, RSTART, RLENGTH-2)     # Save indent for storing pipes.
-            sub(//, "", $1)                         # Collapse the multichar seps.
+
+            sub(//, "", $1)                                 # Collapse the multichar seps.
 
             if (length($0) > 50)                            # For somewhat longer lines...
             {                                               # search for the pipes: if found,
                 gsub(/ \| /, "\n" Pipe_indent "| ")         # break the line just before it,
             }                                               # and also retain the indent.
-            printf Indent                           # Restore the indentation.
+
+            printf Orig_indent                              # Restore the indentation.
             print                                           # Print the xformed line.
         }
         '
