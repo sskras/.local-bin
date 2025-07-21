@@ -35,6 +35,7 @@ if expr "$1" : "^[0-9]\+$" >/dev/null; then
         # Display the actual cmd:
 
         {
+            sub(//, "", $1)                         # Collapse the multichar seps.
             print
         }
         '
