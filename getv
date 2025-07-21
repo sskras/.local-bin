@@ -17,6 +17,15 @@ fi
 # List job details if the 1st argument is potentially a numeric ID (of the job):
 if expr "$1" : "^[0-9]\+$" >/dev/null; then
     at -c $1 | awk '
+
+        # Shell cmd in our at-jobs stats with sole opening parenthesis per line:
+
+        $0 == "(" \
+        {
+            Cmd_started = 1
+        }
+
+        Cmd_started \
         {
             print
         }
