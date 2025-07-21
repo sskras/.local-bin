@@ -16,7 +16,11 @@ fi
 
 # List job details if the 1st argument is potentially a numeric ID (of the job):
 if expr "$1" : "^[0-9]\+$" >/dev/null; then
-    at -c $1
+    at -c $1 | awk '
+        {
+            print
+        }
+        '
     exit
 fi
 
