@@ -44,7 +44,7 @@ Audio_tracks="audio1-ORG+audio1-LIT"
   Start_date=$(date --date "${Start_time}" +%Y-%m-%d)
   Start_time=$(date --date "${Start_time}" +%H:%M)
         Name=${*:-[YEAR] ORIG (ENG; LITH)}
-        Name=$(echo ${Name} | tr ' {}' '-()')
+        Name=$(echo ${Name} | tr ' ' '-')
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
 
 gen_fnames ()
