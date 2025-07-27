@@ -80,6 +80,8 @@ shift ${Done_args}
       Tracks="audio1-ORG+audio1-LIT+5068"
  LRT2_Tracks="audio1-ORG+audio1-LIT+5365"
 Audio_tracks="audio1-ORG+audio1-LIT"
+ LRTL_Tracks="audio1-LIT+5365"
+
   Start_date=$(date --date "${Start_time}" +%Y-%m-%d)
   Start_time=$(date --date "${Start_time}" +%H:%M)
         Name=${*:-[YEAR] ORIG (ENG; LITH)}
@@ -303,6 +305,14 @@ case $Channel in
     # it seems to help the full-featured capture to not lose the audio
     # (at least never in the several months long run).
     sched_dump --audio-only
+    ;;
+
+  (lrtl)
+    # 2025-07-27: New channel;
+    Url="https://www.lrt.lt/servisai/stream_url/live/get_live_url.php?channel=WORLD"
+    Tracks="${LRTL_Tracks}"
+
+    sched_dump
     ;;
 
   (*)
