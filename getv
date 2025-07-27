@@ -225,6 +225,7 @@ sched_dump ()
 	      --preserve-status                            \
 	      ${Duration}                                  \
 	      yt-dlp                                       \
+	        --merge-output-format mkv                  \
 	        --audio-multistreams                       \
 	        -f "${Tracks}"                             \
 	        -o "${Output}"                             \
