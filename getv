@@ -243,14 +243,13 @@ sched_dump ()
 	        -o "${Output}"                             \
 	        "\${Url}"                                  \
 	    ;
-	        Capture_status=\$?
+	    Capture_status=\$?
 	    :
-	    # Wait for yt-dlp / ffmpeg to finish;
-	    echo Polling the media output file for the closure:
+	    echo "Wait for the media/output file to be closed by yt-dlp / ffmpeg:"
 	    :
 	    wait_for_files "${Ext_name}".*mkv | ts
 	    :
-	    echo Media file got closed.
+	    echo "Media file got closed."
 	    :
 	    if [ "\$Capture_status" != 0 ]; then
 	        echo
@@ -273,6 +272,8 @@ sched_dump ()
 	    (
 	        eval '\${Fn_wait_for_files}'
 
+	        echo "Waiting the log files to be closed:"
+	        :
 	        wait_for_files "${Ext_name}"
 	        :
 	        echo
