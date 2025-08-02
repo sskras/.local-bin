@@ -231,15 +231,18 @@ sched_dump ()
 	        -f "${Tracks}"                             \
 	        -o "${Output}"                             \
 	        "\${Url}"                                  \
-	      ||
+	    ;
 	    {
 	        Capture_status=\$?
+	    :
+	    if [ "\$Capture_status" != 0 ]; then
 	        # Wait for yt-dlp / ffmpeg to finish:
 	        sleep 4
 	        echo
 	        echo "Capture failed (\$Capture_status), cleaning up:"
 	        rm -rv "${Ext_name}"*.part
 	        exit
+	    fi
 	    }
 	    :
 	    [ -n "${Audio}" ] && exit 0
