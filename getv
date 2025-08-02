@@ -88,6 +88,19 @@ Audio_tracks="audio1-ORG+audio1-LIT"
         Name=$(echo ${Name} | tr ' ' '-')
  Chan_suffix=$(echo ${Channel} | tr '[:lower:]' '[:upper:]')
 
+
+# Get the actual duration:
+
+if ! expr "${Duration}" : " *[0-9]\+m *" >/dev/null; then
+    Starting_secs=$(date -d "${Start_time}" +%s)
+    Finishing_secs=$(date -d "${Duration}" +%s)
+
+    if [ $Finishing_secs -lt $Starting_secs ]; then
+        Finishing_secs=$(date -d "${Duration} ${Starting_date} tomorrow" +%s)
+    fi
+    Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
+fi
+
 gen_fnames ()
 {
     Ext_name=${Name}-FHD\ ${Start_date}\ ${Start_time}
@@ -150,18 +163,6 @@ if [ "${Cheksums_len}" -gt "${Fname_limit}" ]; then
     echo
     echo "    ${Original_name}"
     echo
-fi
-
-# Get the actual duration:
-
-if ! expr "${Duration}" : " *[0-9]\+m *" >/dev/null; then
-    Starting_secs=$(date -d "${Start_time}" +%s)
-    Finishing_secs=$(date -d "${Duration}" +%s)
-
-    if [ $Finishing_secs -lt $Starting_secs ]; then
-        Finishing_secs=$(date -d "${Duration} ${Starting_date} tomorrow" +%s)
-    fi
-    Duration=$(( ($Finishing_secs - $Starting_secs) / 60 ))m
 fi
 
 Fn_lib='
@@ -338,5 +339,5 @@ echo "Using some defaults:"
 #    https://www.lrt.lt/mediateka/tiesiogiai/lrt-plius
 # -) > "[YEAR]-ORIG-(ENG;-LITH)-16:12:16-FHD.2025-04-13-LRT+.log" 2>&1
 # +) > "[YEAR]-ORIG-(ENG;-LITH)-16:12:16-FHD.2025-04-13-LRT+audio.log" 2>&1
-# 
+
 # vim: ts=4 sw=4 noet
