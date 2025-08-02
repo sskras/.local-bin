@@ -209,7 +209,18 @@ sched_dump ()
 	at "${Start_time} ${Start_date}" <<- \
 	---------------------------------------------------- 2>&1 |
 	(
+	    Fn_wait_for_files='
+	    wait_for_files ()
+	    {
+	        while find /proc -maxdepth 1 -name [0-9]\* -exec ls -l {}/fd \; 2> /dev/null | grep "\$1"; do
+	            echo .
+	            sleep 1
+	        done
+	    }
+	    '
 	    eval '${Fn_lib}'
+	    eval "\${Fn_wait_for_files}"
+
 	    date
 	    pwd
 	    Url=\$( resolve_the_playlist "${Url}" )
@@ -237,10 +248,7 @@ sched_dump ()
 	    # Wait for yt-dlp / ffmpeg to finish;
 	    echo Polling the media output file for the closure:
 	    :
-	    while find /proc -maxdepth 1 -name [0-9]\* -exec ls -l {}/fd \; 2> /dev/null | grep "${Ext_name}".*mkv; do
-	        echo .
-	        sleep 1
-	    done | ts
+	    wait_for_files "${Ext_name}".*mkv | ts
 	    :
 	    echo Media file got closed.
 	    :
@@ -263,10 +271,9 @@ sched_dump ()
 	    at now <<- \
 		--------------------------------------------
 	    (
-	        while find /proc -maxdepth 1 -name [0-9]\* -exec ls -l {}/fd \; 2> /dev/null | grep "${Ext_name}"; do
-	          echo .
-	          sleep 1
-	        done | ts
+	        eval '\${Fn_wait_for_files}'
+
+	        wait_for_files "${Ext_name}"
 	        :
 	        echo
 	        echo "Calculating: ${Original_name}"
