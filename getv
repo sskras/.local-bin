@@ -263,9 +263,10 @@ sched_dump ()
 	    at now <<- \
 		--------------------------------------------
 	    (
-	        # Wait for the audio batch, if any
-	        sleep 10
-	        # TODO: Improve sync ^
+	        while find /proc -maxdepth 1 -name [0-9]\* -exec ls -l {}/fd \; 2> /dev/null | grep "${Ext_name}"; do
+	          echo .
+	          sleep 1
+	        done | ts
 	        :
 	        echo
 	        echo "Calculating: ${Original_name}"
