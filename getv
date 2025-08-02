@@ -232,18 +232,24 @@ sched_dump ()
 	        -o "${Output}"                             \
 	        "\${Url}"                                  \
 	    ;
-	    {
 	        Capture_status=\$?
 	    :
+	    # Wait for yt-dlp / ffmpeg to finish;
+	    echo Polling the media output file for the closure:
+	    :
+	    while find /proc -maxdepth 1 -name [0-9]\* -exec ls -l {}/fd \; 2> /dev/null | grep "${Ext_name}".*mkv; do
+	        echo .
+	        sleep 1
+	    done | ts
+	    :
+	    echo Media file got closed.
+	    :
 	    if [ "\$Capture_status" != 0 ]; then
-	        # Wait for yt-dlp / ffmpeg to finish:
-	        sleep 4
 	        echo
 	        echo "Capture failed (\$Capture_status), cleaning up:"
 	        rm -rv "${Ext_name}"*.part
 	        exit
 	    fi
-	    }
 	    :
 	    [ -n "${Audio}" ] && exit 0
 	    :
