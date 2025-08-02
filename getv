@@ -138,7 +138,7 @@ if [ "${Cheksums_len}" -gt "${Fname_limit}" ]; then
     echo
     echo "Its' length is ${Cheksums_len}. Fixing:"
 
-    Original_name=${Name}
+    Full_name=${Name}
 
     # UTF-8 Ellipsis symbol occupies 3 additional bytes:
     Chars_to_truncate=$(( ${Cheksums_len} - ${Fname_limit} + 3 ))
@@ -159,9 +159,9 @@ if [ "${Cheksums_len}" -gt "${Fname_limit}" ]; then
     echo "    ${Audio_log} "   " (${#Audio_log} chars)"
 
     echo
-    echo "Stored the orignal name:"
+    echo "Saving the full name:"
     echo
-    echo "    ${Original_name}"
+    echo "    ${Full_name}"
     echo
 fi
 
@@ -225,11 +225,11 @@ sched_dump ()
 	    pwd
 	    Url=\$( resolve_the_playlist "${Url}" )
 	    :
-	    if [ -n "${Original_name}" ]; then
+	    if [ -n "${Full_name}" ]; then
 	        echo
 	        echo "The untruncated name:"
 	        echo
-	        echo "${Original_name}"
+	        echo "${Full_name}"
 	        echo
 	    fi
 	    :
@@ -260,9 +260,9 @@ sched_dump ()
 	    :
 	    [ -n "${Audio}" ] && exit 0
 	    :
-	    if [ -n "${Original_name}" ]; then
+	    if [ -n "${Full_name}" ]; then
 	        echo
-	        echo "${Original_name}" > "${Name_storage}"
+	        echo "${Full_name}" > "${Name_storage}"
 	        echo
 	    fi
 	    :
@@ -277,7 +277,7 @@ sched_dump ()
 	        wait_for_files "${Ext_name}"
 	        :
 	        echo
-	        echo "Calculating: ${Original_name}"
+	        echo "Calculating: ${Full_name}"
 	        rhash --sha1 -P                        \
 	          "${Ext_name}"*.mkv                   \
 	          "${Ext_name}"*.log                   \
