@@ -227,8 +227,6 @@ sched_dump ()
 	    echo
 	    echo "    ${Init_name}"
 	    :
-	    Url=\$( resolve_the_playlist "${Url}" )
-	    :
 	    if [ -n "${Full_name}" ]; then
 	        echo
 	        echo "The untruncated name:"
@@ -236,6 +234,8 @@ sched_dump ()
 	        echo "${Full_name}"
 	        echo
 	    fi
+	    :
+	    Url=\$( resolve_the_playlist "${Url}" )
 	    :
 	    timeout -s SIGINT                              \
 	      --preserve-status                            \
