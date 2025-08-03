@@ -221,11 +221,12 @@ sched_dump ()
 	    eval '${Fn_lib}'
 	    eval "\${Fn_wait_for_files}"
 
-	    date
+	    {
 	    pwd
 	    echo "Preparing to capture:"
 	    echo
 	    echo "    ${Init_name}"
+	    echo
 	    :
 	    if [ -n "${Full_name}" ]; then
 	        echo
@@ -234,6 +235,7 @@ sched_dump ()
 	        echo "${Full_name}"
 	        echo
 	    fi
+	    } | ts
 	    :
 	    Url=\$( resolve_the_playlist "${Url}" )
 	    :
@@ -247,13 +249,14 @@ sched_dump ()
 	        -o "${Output}"                             \
 	        "\${Url}"                                  \
 	    ;
+	    {
 	    Capture_status=\$?
 	    :
-	    echo "Wait for the media/output file to be closed by yt-dlp / ffmpeg:"
+	    echo "Wait for the media/output file to be closed by ffmpeg ..."
 	    :
-	    wait_for_files "${Ext_name}".*mkv | ts
+	    wait_for_files "${Ext_name}".*mkv
 	    :
-	    echo "Media file got closed."
+	    echo "Media file is closed."
 	    :
 	    if [ "\$Capture_status" != 0 ]; then
 	        echo
@@ -276,7 +279,7 @@ sched_dump ()
 	    (
 	        eval '\${Fn_wait_for_files}'
 
-	        echo "Waiting the log files to be closed:"
+	        echo "Waiting the log files to be closed..."
 	        :
 	        wait_for_files "${Ext_name}"
 	        :
@@ -295,6 +298,7 @@ sched_dump ()
 	    >> "${Rhash_log}"
 		--------------------------------------------
 	    # Quit current job ASAP to close the log.
+	    } 2>&1 | ts
 	) \
 	> "${Log}" 2>&1
 	----------------------------------------------------
