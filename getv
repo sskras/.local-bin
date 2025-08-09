@@ -213,7 +213,15 @@ sched_dump ()
 	    :
 	    wait_for_files ()
 	    {
-	        Matching_regex=\$1
+	        :
+	        # Escape the `[` and `]` symbols:
+	        Matching_regex=\$(echo \$1 | sed -E "s/[][]/\\\\\\\\\\0/g")
+	        :
+	        # Heredoc + double quotes makes this more challenging:
+	        # - '\\\0' is originally needed by sed -E to add an escaping backslash `\\` to a matched symbol `\0`;
+	        # - '\\\\\0' is needed inside double quotes because each double backslash becomes a single one here;
+	        #   (so these need to be quoted additionally except for one in `\0`)
+	        # - '\\\\\\\\\\0' is needed due to heredoc (doubles the amount).
 	        :
 	        while find /proc -maxdepth 1 -name [0-9]\* -exec ls -l {}/fd \; 2> /dev/null | grep "\${Matching_regex}"; do
 	            echo .
