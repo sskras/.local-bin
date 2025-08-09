@@ -210,9 +210,12 @@ sched_dump ()
 	---------------------------------------------------- 2>&1 |
 	(
 	    Fn_wait_for_files='
+	    :
 	    wait_for_files ()
 	    {
-	        while find /proc -maxdepth 1 -name [0-9]\* -exec ls -l {}/fd \; 2> /dev/null | grep "\$1"; do
+	        Matching_regex=\$1
+	        :
+	        while find /proc -maxdepth 1 -name [0-9]\* -exec ls -l {}/fd \; 2> /dev/null | grep "\${Matching_regex}"; do
 	            echo .
 	            sleep 1
 	        done
